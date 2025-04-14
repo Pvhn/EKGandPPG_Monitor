@@ -56,7 +56,7 @@ static void MX_I2C1_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+uint8_t data_ready = 0;
 /* USER CODE END 0 */
 
 /**
@@ -93,30 +93,12 @@ int main(void)
 
   max030201_init(&hi2c1);
 
-
+  uint8_t data[12];
+  uint8_t read = 1;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
-	uint8_t initdata[11] =
-	{
-		0x7F,
-		0x07,
-		0x27,
-		0x00,
-		0x1F,
-		0x1F,
-		0x1F,
-		0x0,
-		0xff,
-		0x21,
-		0x03,
-	};
-
-	uint8_t data[12];
-	uint8_t write = 0;
-	uint8_t read = 1;
   while (1)
   {
     /* USER CODE END WHILE */
@@ -124,6 +106,19 @@ int main(void)
     /* USER CODE BEGIN 3 */
 
 	//HAL_I2C_Master_Transmit(handle, MAX03I2CADDR_W, dataBuffer, 4, HAL_MAX_DELAY);
+	if (read)
+	{
+		HAL_I2C_Mem_Read_IT(&hi2c1, MAX03I2CADDR_R, REG_ADDR_INTSTAT1, 1, data, 4);
+		read = 0;
+	}
+//
+//	if (write)
+//	{
+//		HAL_I2C_Mem_Write_IT(&hi2c1, MAX03I2CADDR_W, REG_ADDR_FIFO_CONFG, I2C_MEMADD_SIZE_8BIT,
+//				initdata, 10);
+//		write = 0;
+//	}
+//
 //	HAL_I2C_Mem_Read_IT(&hi2c1, MAX03I2CADDR_R, REG_ADDR_FIFO_CONFG, I2C_MEMADD_SIZE_8BIT,
 //			data , 12);
   }
@@ -242,12 +237,30 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
+  /*Configure GPIO pin : PB5 */
+  GPIO_InitStruct.Pin = GPIO_PIN_5;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI9_5_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
+
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
 
+/* Pushbutton Interrupt Function */
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+	if (GPIO_Pin == GPIO_PIN_5)
+	{
+		data_ready = 1;
+	}
+}
 /* USER CODE END 4 */
 
 /**

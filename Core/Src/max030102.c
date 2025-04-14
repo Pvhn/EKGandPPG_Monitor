@@ -76,33 +76,27 @@ int max030201_readReg_IT(I2C_HandleTypeDef *handle, const uint8_t regAddr, uint8
 int max030201_init(I2C_HandleTypeDef *handle)
 {
 	int error = 0;
+	uint8_t *data;
+
+	// Initialize Registers
+	SensorRegMap.IntEnable1.As8BitWord = 0x80;
+	SensorRegMap.IntEnable2.As8BitWord = 0x00;
 	SensorRegMap.FIFOConfig.AsBits.FIFORollOvEn = 1;
 	SensorRegMap.FIFOConfig.AsBits.SampleAvg = 0;
 	SensorRegMap.ModeConfig.AsBits.Mode = MODE_MULTLED;
-	SensorRegMap.SpO2Config.As8BitWord = 0x00;
+	SensorRegMap.SpO2Config.As8BitWord = 0x27;
+	SensorRegMap.LEDPulseAmpRed = 0xFF;
+	SensorRegMap.LEDPulseAmpIR = 0xFF;
+	SensorRegMap.MultModeCtl.As16BitWord = 0x2121;
 
-	uint8_t dataBuffer[10] =
-	{
-		0x7F,
-		0x07,
-		0x27,
-		0x00,
-		0xFF,
-		0xFF,
-		0x00,
-		0x00,
-		0x21,
-		0x3,
-	};
+	data = &(SensorRegMap.IntEnable1.As8BitWord);
+	error = HAL_I2C_Mem_Write(handle, MAX03I2CADDR_W, REG_ADDR_INTEN1, 1,data, 2, HAL_MAX_DELAY);
 
-	error = HAL_I2C_Mem_Write(handle, MAX03I2CADDR_W, REG_ADDR_FIFO_CONFG, I2C_MEMADD_SIZE_8BIT,
-			dataBuffer, 10, HAL_MAX_DELAY);
+	data = &(SensorRegMap.FIFO_WR_PTR);
+	error = HAL_I2C_Mem_Write(handle, MAX03I2CADDR_W, REG_ADDR_FIFO_WRITE_PTR, 1, data, 3, HAL_MAX_DELAY);
 
-	dataBuffer[0] = 0x0000;
-	dataBuffer[1] = 0x0000;
-	dataBuffer[2] = 0x0000;
-	error = HAL_I2C_Mem_Write(handle, MAX03I2CADDR_W, REG_ADDR_FIFO_WRITE_PTR, I2C_MEMADD_SIZE_8BIT,
-			dataBuffer, 3, HAL_MAX_DELAY);
+	data = &(SensorRegMap.FIFOConfig.As8BitWord);
+	error = HAL_I2C_Mem_Write(handle, MAX03I2CADDR_W, REG_ADDR_FIFO_CONFG, 1, data, 10, HAL_MAX_DELAY);
 
 	return error;
 }
