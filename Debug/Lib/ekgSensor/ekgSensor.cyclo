@@ -1,0 +1,2 @@
+../Lib/ekgSensor/ekgSensor.c:21:6:ekgSensor_storeSample	2
+../Lib/ekgSensor/ekgSensor.c:31:10:ekgSensor_calcHB	4

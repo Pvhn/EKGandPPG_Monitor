@@ -1,0 +1,6 @@
+../Lib/ppgSensor/spO2_algorithim.c:76:6:maxim_heart_rate_and_oxygen_saturation	26
+../Lib/ppgSensor/spO2_algorithim.c:237:6:maxim_find_peaks	1
+../Lib/ppgSensor/spO2_algorithim.c:251:6:maxim_peaks_above_min_height	8
+../Lib/ppgSensor/spO2_algorithim.c:281:6:maxim_remove_close_peaks	6
+../Lib/ppgSensor/spO2_algorithim.c:310:6:maxim_sort_ascend	4
+../Lib/ppgSensor/spO2_algorithim.c:328:6:maxim_sort_indices_descend	4

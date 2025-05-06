@@ -1,0 +1,6 @@
+../Lib/max030102/max030102.c:10:5:max030201_writeRegMask	40	static
+../Lib/max030102/max030102.c:25:5:max030201_writeReg	40	static
+../Lib/max030102/max030102.c:33:5:max030201_writeReg_IT	32	static
+../Lib/max030102/max030102.c:41:5:max030201_readReg	40	static
+../Lib/max030102/max030102.c:59:5:max030201_readReg_IT	32	static
+../Lib/max030102/max030102.c:66:5:max030201_CheckDevice	16	static

@@ -18,7 +18,12 @@
 #ifndef MAX030102_H_
 #define MAX030102_H_
 
+#include "stm32f4xx_hal.h"
 #include <stdint.h>
+
+/*** Redefine if necessary ***/
+#define h_I2Cbus hi2c1
+extern I2C_HandleTypeDef h_I2Cbus;
 
 #define MAX03I2CADDR_W 0xAE // Address for Write
 #define MAX03I2CADDR_R 0xAF // Address for Read
@@ -28,9 +33,9 @@
 #define REG_ADDR_INTSTAT2       0x01
 #define REG_ADDR_INTEN1         0x02
 #define REG_ADDR_INTEN2         0x03
-#define REG_ADDR_FIFO_WRITE_PTR 0x04
+#define REG_ADDR_FIFO_WR_PTR 	0x04
 #define REG_ADDR_OVERFLOW_CTR   0x05
-#define REG_ADDR_FIFO_READ_PTR  0x06
+#define REG_ADDR_FIFO_RD_PTR  	0x06
 #define REG_ADDR_FIFO_DATA      0x07
 #define REG_ADDR_FIFO_CONFG     0x08
 #define REG_ADDR_MODE_CONFG     0x09
@@ -148,25 +153,16 @@ typedef union
 
 typedef union
 {
-    uint16_t As16BitWord;
+	uint8_t As8BitWord;
 
     struct
     {
-        uint16_t Slot1       :3;
-        uint16_t Reserved3   :1;
-        uint16_t Slot2       :3;
-        uint16_t Reserved7   :1;
-        uint16_t Slot3       :3;
-        uint16_t Reserved10  :1;
-        uint16_t Slot4       :3;
-        uint16_t Reserved15  :1;
+        uint8_t Slot1       :3;
+        uint8_t Reserved3   :1;
+        uint8_t Slot2       :3;
+        uint8_t Reserved7   :1;
     }AsBits;
 
-    struct
-	{
-    	uint8_t Slot1and2 :8;
-    	uint8_t Slot3and4 :8;
-	}As8BitWord;
 
 }MultLEDModeCtlRegType;
 
@@ -176,8 +172,8 @@ typedef union
 
     struct
     {
-        int16_t DieTempInteger     :8;
-        uint16_t DieTempFraction   :8;
+        int8_t DieTempInteger     :8;
+        uint8_t DieTempFraction   :8;
     }AsBits;
 
 }TempIntFracDataRegType;
@@ -209,12 +205,14 @@ typedef struct
 	uint8_t Reserved_0B;
 	uint8_t LEDPulseAmpRed;
 	uint8_t LEDPulseAmpIR;
-	uint8_t Reserved_0E_0F[2];
-	MultLEDModeCtlRegType MultModeCtl;
-	uint8_t Reserved_13_17[4];
-	uint8_t Reserved_18_1E[6];
-	TempIntFracDataRegType DieTempReg;
-	TempDieCtlRegType DieTempConfg;
+	uint8_t Reserved_0E_10[3];
+	MultLEDModeCtlRegType MultModeCtlS1S2;
+	MultLEDModeCtlRegType MultModeCtlS3S4;
+//	uint8_t Reserved_13_17[5];
+//	uint8_t Reserved_18_1E[6];
+//	TempIntFracDataRegType DieTempReg;
+//	TempDieCtlRegType DieTempConfg;
+//	TempDieCtlRegType DieTempConfg2;
 	// Remainder of the registers we
 	// do not use so will not define to save space
 }SensorIOCRegType;
@@ -223,15 +221,43 @@ typedef struct
 {
 	uint32_t Red[4];
 	uint32_t IR[4];
-	uint32_t Green[4];
-	uint8_t head;
-	uint8_t tail;
 }SensorFIFOBufferType;
+
+typedef struct
+{
+	uint8_t Red[3];
+	uint8_t IR[3];
+}SensorSampleDataType;
+
+typedef struct
+{
+	uint32_t Red[100];
+	uint32_t IR[100];
+}SensorDataBufferType;
+
+typedef union
+{
+    uint32_t As32BitWord;
+
+    struct
+    {
+        uint32_t Byte0 :8;
+        uint32_t Byte1 :8;
+        uint32_t Byte2 :8;
+        uint32_t Byte3 :8;
+    }AsBytes;
+}SampletoDataType;
 
 /*================== FUNCTION DECLARATIONS =======================
  */
 
-int max030201_init(I2C_HandleTypeDef *handle);
+extern int max030201_CheckDevice(void);
+extern void max030201_registerI2Cbus(I2C_HandleTypeDef *handle);
+extern int max030201_writeRegMask(const uint8_t regAddr, uint8_t data, uint8_t mask);
+extern int max030201_writeReg(const uint8_t regAddr, uint8_t *pData, uint8_t bytes);
+extern int max030201_writeReg_IT(const uint8_t regAddr, uint8_t *pData, uint8_t bytes);
+extern int max030201_readReg(const uint8_t regAddr, uint8_t* pData, uint8_t bytes);
+extern int max030201_readReg_IT(const uint8_t regAddr, uint8_t* pData, uint8_t bytes);
 
 #endif /* MAX030102_H_ */
 

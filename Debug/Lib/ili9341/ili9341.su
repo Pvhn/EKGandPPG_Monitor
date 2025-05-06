@@ -1,0 +1,17 @@
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_spi.h:297:22:LL_SPI_Enable	16	static
+../Lib/ili9341/ili9341.c:9:13:ILI9341_Select	8	static
+../Lib/ili9341/ili9341.c:13:6:ILI9341_Unselect	8	static
+../Lib/ili9341/ili9341.c:17:13:ILI9341_Reset	8	static
+../Lib/ili9341/ili9341.c:24:13:SPI_WriteByte	16	static
+../Lib/ili9341/ili9341.c:36:13:ILI9341_WriteCommand	16	static
+../Lib/ili9341/ili9341.c:45:13:ILI9341_WriteData	24	static
+../Lib/ili9341/ili9341.c:63:13:ILI9341_SetAddressWindow	32	static
+../Lib/ili9341/ili9341.c:110:6:ILI9341_Init	16	static
+../Lib/ili9341/ili9341.c:143:6:ILI9341_DrawPixel	24	static
+../Lib/ili9341/ili9341.c:156:13:ILI9341_WriteChar	40	static
+../Lib/ili9341/ili9341.c:180:6:ILI9341_WriteString	32	static
+../Lib/ili9341/ili9341.c:207:6:ILI9341_FillRectangle	32	static
+../Lib/ili9341/ili9341.c:228:6:ILI9341_FillScreen	24	static
+../Lib/ili9341/ili9341.c:232:6:ILI9341_DrawImage	24	static
+../Lib/ili9341/ili9341.c:243:6:ILI9341_InvertColors	16	static
+../Lib/ili9341/ili9341.c:249:6:ILI9341_Backlight	16	static

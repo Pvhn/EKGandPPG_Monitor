@@ -1,0 +1,2 @@
+../Lib/ekgSensor/ekgSensor.c:21:6:ekgSensor_storeSample	16	static
+../Lib/ekgSensor/ekgSensor.c:31:10:ekgSensor_calcHB	32	static

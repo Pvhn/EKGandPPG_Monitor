@@ -1,0 +1,6 @@
+../Lib/ppgSensor/ppgSensor.c:35:5:ppgSensor_Init	2
+../Lib/ppgSensor/ppgSensor.c:93:6:ppgSensor_calculate_spO2HB	9
+../Lib/ppgSensor/ppgSensor.c:172:6:ppgSensor_PPGInterrupt	5
+../Lib/ppgSensor/ppgSensor.c:208:6:ppgSensor_I2CInterrupt	2
+../Lib/ppgSensor/ppgSensor.c:226:5:ppgSensor_Shutdown	2
+../Lib/ppgSensor/ppgSensor.c:243:5:ppgSensor_Reset	1

@@ -25,4 +25,8 @@ SUBDIRS := \
 Core/Src \
 Core/Startup \
 Drivers/STM32F4xx_HAL_Driver/Src \
+Lib/ekgSensor \
+Lib/ili9341 \
+Lib/max030102 \
+Lib/ppgSensor \
 
