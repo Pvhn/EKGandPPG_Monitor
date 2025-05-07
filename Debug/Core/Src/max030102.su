@@ -1,6 +1,0 @@
-../Core/Src/max030102.c:17:5:max030201_writeRegMask	40	static
-../Core/Src/max030102.c:32:5:max030201_writeReg	32	static
-../Core/Src/max030102.c:42:5:max030201_writeReg_IT	24	static
-../Core/Src/max030102.c:52:5:max030201_readReg	40	static
-../Core/Src/max030102.c:69:5:max030201_readReg_IT	32	static
-../Core/Src/max030102.c:76:5:max030201_init	48	static

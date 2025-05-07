@@ -1,0 +1,7 @@
+../Core/Src/UserInterface.c:28:9:gfx_DrawHeartBeatAnimate	7
+../Core/Src/UserInterface.c:87:6:gfx_DrawGridLarge	10
+../Core/Src/UserInterface.c:139:6:gfx_DrawPPGPage	14
+../Core/Src/UserInterface.c:249:6:gfx_DrawGrid_VerticalLine	7
+../Core/Src/UserInterface.c:290:6:gfx_DrawEKGPageLarge	24
+../Core/Src/UserInterface.c:450:6:gfx_DrawEKGPageSmall	48
+../Core/Src/UserInterface.c:729:6:gfx_CheckPauseState	5

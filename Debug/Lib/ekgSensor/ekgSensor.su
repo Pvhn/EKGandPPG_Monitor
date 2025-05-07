@@ -1,0 +1,7 @@
+../Lib/ekgSensor/ekgSensor.c:33:6:ekgSensor_storeSample	16	static
+../Lib/ekgSensor/ekgSensor.c:51:10:ekgSensor_calcHB	48	static
+../Lib/ekgSensor/ekgSensor.c:308:9:ekgSensor_GetCurrSample	4	static
+../Lib/ekgSensor/ekgSensor.c:313:10:ekgSensor_GetCurrSampTime	4	static
+../Lib/ekgSensor/ekgSensor.c:318:6:ekgSensor_CheckNewSampleFlag	4	static
+../Lib/ekgSensor/ekgSensor.c:323:10:ekgSensor_GetStatus	8	static
+../Lib/ekgSensor/ekgSensor.c:377:6:ekgSensor_ClearNewSampleFlag	4	static
